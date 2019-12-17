@@ -12,14 +12,14 @@ import ij.process.ImageProcessor;
 public class PruebaImagenes {
 
 	public static void main(final String[] args) {
-		ImagePlus imgPlus = new ImagePlus("images/prueba.jpg");
+		ImagePlus imgPlus = new ImagePlus("images/paisaje.jpg");
 		ImageProcessor imgProcessor = imgPlus.getProcessor();
 		imgProcessor.set(20, 30, 255);
 
 		int[] rgb = new int[3];
 		imgProcessor.getPixel(20, 30, rgb);
 		SearchInterestRegion search = new SearchInterestRegion();
-		search.setup(imgProcessor, 80, 5);
+		search.setup(imgProcessor, 90, 5);
 		System.out.println("R:" + rgb[0] + " G:" + rgb[1] + " B:" + rgb[2] + " Total:" + imgProcessor.getPixel(20, 30));
 		System.out.println("HEIGTH:" + imgProcessor.getHeight() + " WIDTH:" + imgProcessor.getWidth());
 

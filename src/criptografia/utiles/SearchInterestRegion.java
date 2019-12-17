@@ -17,7 +17,7 @@ public class SearchInterestRegion {
 
 
 	public void setup(final ImageProcessor imgProcessor, final int umbral, final int s) {
-		this.umbral = umbral;
+		this.umbral = (int) Math.pow((umbral + 20) * 2, 3);
 		this.s = s;
 		this.imgProcessor = imgProcessor;
 		this.height = imgProcessor.getHeight();
@@ -46,9 +46,9 @@ public class SearchInterestRegion {
 						data.setWidth(this.s);
 					}
 					data.setROI(e > this.umbral);
-					//					if (e > this.umbral) {
-					//						this.imgProcessor = this.convert(i, j);
-					//					}
+					if (e > this.umbral) {
+						this.imgProcessor = this.convert(i, j);
+					}
 					result.add(data);
 				}
 			}
@@ -56,19 +56,19 @@ public class SearchInterestRegion {
 		return result;
 	}
 
-	//	private ImageProcessor convert(final int i, final int j) {
-	//		ImageProcessor res = this.imgProcessor;
-	//		for (int x = j; x < this.s + j; x = x + 1) {
-	//			for (int z = i; z < this.s + i; z = z + 1) {
-	//				if (z >= this.width || x >= this.height) {
-	//					break;
-	//				} else {
-	//					res.convertToRGB().set(z, x, -255);
-	//				}
-	//			}
-	//		}
-	//		return res;
-	//	}
+	private ImageProcessor convert(final int i, final int j) {
+		ImageProcessor res = this.imgProcessor;
+		for (int x = j; x < this.s + j; x = x + 1) {
+			for (int z = i; z < this.s + i; z = z + 1) {
+				if (z >= this.width || x >= this.height) {
+					break;
+				} else {
+					res.convertToRGB().set(z, x, -255);
+				}
+			}
+		}
+		return res;
+	}
 
 	private int blockValue(final int i, final int j, final int mean) {
 		int result = 0;
