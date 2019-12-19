@@ -4,6 +4,7 @@ package criptografia.pruebas;
 import java.util.Collection;
 
 import criptografia.cifrado.DataDivision;
+import criptografia.utiles.OmegaGenerator;
 import criptografia.utiles.SearchInterestRegion;
 import ij.ImagePlus;
 import ij.io.FileSaver;
@@ -27,6 +28,11 @@ public class PruebaImagenes {
 		for (DataDivision data : datas) {
 			System.out.println("left:" + data.getLeft() + " top:" + data.getTop() + " height:" + data.getHeight() + " width:" + data.getWidth() + " ROI:" + data.getROI().toString());
 		}
+		OmegaGenerator omega = new OmegaGenerator();
+		omega.setup(datas.stream().findFirst().get(), 5, 8, 2, 1, new int[] {
+			0, 1, 1, 0
+		});
+		omega.run();
 		ImagePlus imp2 = new ImagePlus("ALM", search.imgProcessor);
 		FileSaver fs = new FileSaver(imp2);
 		fs.saveAsJpeg("images/prueba3.jpg");
