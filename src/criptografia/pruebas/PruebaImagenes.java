@@ -29,8 +29,8 @@ public class PruebaImagenes {
 			System.out.println("left:" + data.getLeft() + " top:" + data.getTop() + " height:" + data.getHeight() + " width:" + data.getWidth() + " ROI:" + data.getROI().toString());
 		}
 		OmegaGenerator omega = new OmegaGenerator();
-		omega.setup(datas.stream().findFirst().get(), 5, 8, 2, 1, new int[] {
-			0, 1, 1, 0
+		omega.setup(datas.stream().findFirst().get(), 7, 8, 2, 2, new int[] {
+			0, 1, 1, 1
 		});
 		omega.run();
 		ImagePlus imp2 = new ImagePlus("ALM", search.imgProcessor);

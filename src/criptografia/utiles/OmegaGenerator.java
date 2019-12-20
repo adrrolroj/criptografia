@@ -1,10 +1,6 @@
 
 package criptografia.utiles;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-
 import criptografia.cifrado.DataDivision;
 
 public class OmegaGenerator {
@@ -62,7 +58,7 @@ public class OmegaGenerator {
 		int i = (int) Math.ceil(this.L / 16.0);
 		int[][] result = new int[this.data.getHeight()][this.data.getWidth()];
 		int[] Y = new int[i * 4];
-		BigInteger[] Z = new BigInteger[i * 4];
+		String[] Z = new String[i * 4];
 		for (int j = 1; j <= i; j++) {
 			int t = this.X[0] * this.U[0] + this.X[1] * this.U[1] + this.X[2] * this.U[2] + this.X[3] * this.U[3];
 			for (int b = 1; b <= t; b++) {
@@ -79,11 +75,31 @@ public class OmegaGenerator {
 			}
 		}
 		for (int o = 0; o <= Y.length - 1; o++) {
-			Long l = (long) (Math.pow(2, 32) * Y[o]);
-			Z[o] = new BigInteger(l.toString());
-			Z[o] = OmegaGenerator.convertirDecimalABinarioManual(l);
+			Long l = (long) ((Math.pow(2, 32) - 1) * Y[o]);
+			Z[o] = l.toString();
+			if (OmegaGenerator.convertirDecimalABinarioManual(l).equals("0")) {
+				Z[o] = "00000000000000000000000000000000";
+			} else {
+				Z[o] = OmegaGenerator.convertirDecimalABinarioManual(l);
+			}
 		}
-		List<String> Phi = new ArrayList<String>();
+		String secuenciaBinaria = "";
+		for (String r : Z) {
+			secuenciaBinaria = secuenciaBinaria + r;
+		}
+		result = this.asignaSecuencia(secuenciaBinaria);
+		return result;
+	}
+
+	private int[][] asignaSecuencia(final String secuenciaBinaria) {
+		int[][] result = new int[this.data.getHeight()][this.data.getWidth()];
+		int indice = 0;
+		for (int w = 0; w <= this.data.getHeight() - 1; w++) {
+			for (int p = 0; p <= this.data.getWidth() - 1; p++) {
+				result[w][p] = Integer.parseInt(secuenciaBinaria.substring(indice, indice + 8), 2);
+				indice += 8;
+			}
+		}
 		return result;
 	}
 
@@ -97,8 +113,8 @@ public class OmegaGenerator {
 		return result;
 	}
 
-	private static BigInteger convertirDecimalABinarioManual(final long decimal) {
-		return new BigInteger(Long.toBinaryString(decimal));
+	private static String convertirDecimalABinarioManual(final long decimal) {
+		return Long.toBinaryString(decimal);
 	}
 
 }
