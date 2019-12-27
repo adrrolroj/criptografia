@@ -28,11 +28,40 @@ public class PruebaImagenes {
 		for (DataDivision data : datas) {
 			System.out.println("left:" + data.getLeft() + " top:" + data.getTop() + " height:" + data.getHeight() + " width:" + data.getWidth() + " ROI:" + data.getROI().toString());
 		}
+		//obtenemos omega
 		OmegaGenerator omega = new OmegaGenerator();
 		omega.setup(datas.stream().findFirst().get(), 7, 8, 2, 2, new int[] {
 			0, 1, 1, 1
 		});
-		omega.run();
+		int[][] resOmega = omega.run();
+		
+		System.out.println();
+		
+		for(int i=0; i<resOmega.length; i++) {
+			System.out.print("[");
+			for(int j = 0; j<resOmega[0].length; j++) {
+				System.out.print(resOmega[i][j] + ",	");
+			}
+			System.out.println("]");
+		}
+		
+		//obtenemos psi
+		OmegaGenerator psi = new OmegaGenerator();
+		psi.setup(datas.stream().findFirst().get(), 4, 5, 3, 2, new int[] {
+				0, 1, 1, 1
+		});
+		int[][] resPsi = psi.run();
+		
+		System.out.println();
+		
+		for(int i=0; i<resPsi.length; i++) {
+			System.out.print("[");
+			for(int j = 0; j<resPsi[0].length; j++) {
+				System.out.print(resPsi[i][j] + ",	");
+			}
+			System.out.println("]");
+		}
+		
 		ImagePlus imp2 = new ImagePlus("ALM", search.imgProcessor);
 		FileSaver fs = new FileSaver(imp2);
 		fs.saveAsJpeg("images/prueba3.jpg");
