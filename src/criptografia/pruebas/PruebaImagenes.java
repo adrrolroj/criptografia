@@ -37,7 +37,7 @@ public class PruebaImagenes {
 			}
 			System.out.println(" ");
 		}
-		System.out.println("------------------------------");
+		System.out.println("--------------------------------");
 		for (int i = 0; i <= 5 - 1; i++) {
 			for (int j = 0; j <= 5 - 1; j++) {
 				int[] rgb2 = new int[3];
@@ -46,7 +46,7 @@ public class PruebaImagenes {
 			}
 			System.out.println(" ");
 		}
-		System.out.println("------------------------------");
+		System.out.println("--------------------------------");
 		for (int i = 0; i <= 5 - 1; i++) {
 			for (int j = 0; j <= 5 - 1; j++) {
 				int[] rgb2 = new int[3];
