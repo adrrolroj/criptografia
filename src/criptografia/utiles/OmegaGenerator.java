@@ -10,7 +10,7 @@ public class OmegaGenerator {
 	public int			b;
 	public int			c;
 	public int			d;
-	public int[]		X;
+	public double[]		X;
 	private Integer		L;
 	private int			F;
 	private int[][]		matrixA;
@@ -20,7 +20,7 @@ public class OmegaGenerator {
 	};
 
 
-	public void setup(final DataDivision data, final int a, final int b, final int c, final int d, final int[] x) {
+	public void setup(final DataDivision data, final int a, final int b, final int c, final int d, final double[] x) {
 		this.a = a;
 		this.b = b;
 		this.c = c;
@@ -57,10 +57,11 @@ public class OmegaGenerator {
 	public int[][] run() {
 		int i = (int) Math.ceil(this.L / 16.0);
 		int[][] result = new int[this.data.getHeight()][this.data.getWidth()];
-		int[] Y = new int[i * 4];
+		double[] Y = new double[i * 4];
 		String[] Z = new String[i * 4];
 		for (int j = 1; j <= i; j++) {
-			int t = this.X[0] * this.U[0] + this.X[1] * this.U[1] + this.X[2] * this.U[2] + this.X[3] * this.U[3];
+			double t = this.X[0] * this.U[0] + this.X[1] * this.U[1] + this.X[2] * this.U[2] + this.X[3] * this.U[3];
+			t = Math.floor(t) + 1;
 			for (int b = 1; b <= t; b++) {
 				this.X = this.multiplicaAX();
 			}
@@ -103,8 +104,8 @@ public class OmegaGenerator {
 		return result;
 	}
 
-	private int[] multiplicaAX() {
-		int[] result = new int[4];
+	private double[] multiplicaAX() {
+		double[] result = new double[4];
 		for (int w = 0; w <= 3; w++) {
 			for (int p = 0; p <= 3; p++) {
 				result[w] = (result[w] + this.matrixA[w][p] * this.X[p]) % 2;
